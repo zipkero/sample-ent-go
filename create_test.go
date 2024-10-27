@@ -22,11 +22,17 @@ func Example_create() {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
 
-	task1, err := client.Todo.Create().Save(ctx)
+	task1, err := client.Todo.Create().SetText("add graphql example").Save(ctx)
 	if err != nil {
 		log.Fatalf("failed creating todo: %v", err)
 	}
-	fmt.Println(task1)
+	fmt.Printf("%d: %q\n", task1.ID, task1.Text)
+	task2, err := client.Todo.Create().SetText("add tracking example").Save(ctx)
+	if err != nil {
+		log.Fatalf("failed creating todo: %v", err)
+	}
+	fmt.Printf("%d: %q\n", task2.ID, task2.Text)
 	// Output:
-	// Todo(id=1)
+	// 1: "add graphql example"
+	// 2: "add tracking example"
 }
